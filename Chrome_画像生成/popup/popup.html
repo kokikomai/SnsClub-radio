@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instant Infographic</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+      </div>
+      <h1>Instant Infographic</h1>
+      <p class="subtitle">どのページでもテキスト選択→図解生成</p>
+    </header>
+
+    <main>
+      <!-- APIキー設定 -->
+      <section class="card">
+        <h2>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+          </svg>
+          Gemini APIキー
+        </h2>
+        <div class="input-group">
+          <input type="password" id="apiKey" placeholder="APIキーを入力..." />
+          <button id="toggleApiKey" class="icon-btn" title="表示/非表示">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+        <button id="saveApiKey" class="primary-btn">保存</button>
+        <p class="hint">
+          <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studioでキーを取得 →</a>
+        </p>
+        <div id="apiKeyStatus" class="status"></div>
+      </section>
+
+      <!-- 図解スタイル設定 -->
+      <section class="card">
+        <h2>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          デフォルトスタイル
+        </h2>
+        <div class="style-grid">
+          <label class="style-option">
+            <input type="radio" name="style" value="infographic" checked />
+            <span class="style-label">
+              <span class="style-icon">📊</span>
+              インフォグラフィック
+            </span>
+          </label>
+          <label class="style-option">
+            <input type="radio" name="style" value="flowchart" />
+            <span class="style-label">
+              <span class="style-icon">🔀</span>
+              フローチャート
+            </span>
+          </label>
+          <label class="style-option">
+            <input type="radio" name="style" value="mindmap" />
+            <span class="style-label">
+              <span class="style-icon">🧠</span>
+              マインドマップ
+            </span>
+          </label>
+          <label class="style-option">
+            <input type="radio" name="style" value="comparison" />
+            <span class="style-label">
+              <span class="style-icon">⚖️</span>
+              比較表
+            </span>
+          </label>
+          <label class="style-option">
+            <input type="radio" name="style" value="timeline" />
+            <span class="style-label">
+              <span class="style-icon">📅</span>
+              タイムライン
+            </span>
+          </label>
+          <label class="style-option">
+            <input type="radio" name="style" value="hierarchy" />
+            <span class="style-label">
+              <span class="style-icon">🏛️</span>
+              階層構造
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <!-- 使い方 -->
+      <section class="card usage">
+        <h2>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          使い方
+        </h2>
+        <ol>
+          <li>任意のWebページでテキストを選択</li>
+          <li>表示される「図解生成」ボタンをクリック</li>
+          <li>スタイルを選択</li>
+          <li>生成された画像を保存 or 貼り付け</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer>
+      <p>Powered by Google Gemini</p>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
